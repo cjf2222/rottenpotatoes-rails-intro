@@ -12,30 +12,30 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings= ['G','PG','PG-13','R']
-    @chosen_ratings=['G','PG','PG-13','R']
+    @rating=['G','PG','PG-13','R']
     if(params[:ratings].present?)
-      @chosen_ratings= params[:ratings].keys
-      session[:current_ratings]=@chosen_ratings
+      @rating= params[:ratings].keys
+      session[:rates]=@rating
     else
-        if(session[:current_ratings].present?)
-          @chosen_ratings=session[:current_ratings]
+        if(session[:rates].present?)
+          @rating=session[:rates]
         else
-          session[:current_ratings]=@chosen_ratings
+          session[:rates]=@rating
         end
     end
-    @condition="title"
+    @sorter="title"
     if(params[:sort].present?)
-      @condition=params[:sort]
-      session[:current_sort]=@condition
+      @sorter=params[:sort]
+      session[:current_sort]=@sorter
     else
         if(session[:current_sort].present?)
-          @condition=session[:current_sort]
+          @sorter=session[:current_sort]
         end
     end
-    if @condition == "title"
+    if @sorter == "title"
       @movies=Movie.where(rating: @chosen_ratings).order("title")
       @style_t="hilite"
-    elsif @condition == "date"
+    elsif @sorter == "date"
       @movies=Movie.where(rating: @chosen_ratings).order("release_date").reverse_order
       @style_d="hilite"
     else
