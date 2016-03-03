@@ -14,10 +14,11 @@ class MoviesController < ApplicationController
   def index
     #@all_ratings = ['G','PG','PG-13','R']
     
-   # @rate = params[:ratings].keys
-   # if(params[:ratings].present?)
-     #   @rate = @ratings
-    @movies = Movie.movies(params[:ratings].keys, params[:order_by])
+        @rate = @ratings
+    if(params[:ratings].present?)
+       @rate = params[:ratings].keys
+
+    @movies = Movie.movies(@rate, params[:order_by])                     #movies(params[:ratings].keys, params[:order_by])
     @ratings =Movie.ratings
   end
 
