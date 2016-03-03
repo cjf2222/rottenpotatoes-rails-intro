@@ -1,3 +1,4 @@
+
 -#  This file is app/views/movies/index.html.haml
 %h1 All Movies
 
@@ -7,8 +8,8 @@
       %th Movie Title
       %th Rating
       %th Release Date
-      %th More Info 
- %tbody
+      %th More Info
+  %tbody
     - @movies.each do |movie|
       %tr
         %td= movie.title 
