@@ -17,7 +17,7 @@ class MoviesController < ApplicationController
    # @rate = params[:ratings].keys
    # if(params[:ratings].present?)
      #   @rate = @ratings
-    @movies = Movie.order(params[:order_by])   #movies(params[:ratings].keys, params[:order_by])
+    @movies = Movie.movies(params[:ratings].keys, params[:order_by])
     @ratings =Movie.ratings
   end
 
