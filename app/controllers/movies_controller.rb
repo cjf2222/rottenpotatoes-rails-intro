@@ -34,14 +34,14 @@ class MoviesController < ApplicationController
     end
     if @sorter == "title"
       @movies=Movie.where(rating: @rating).order("title")
-      @style_t="hilite"
+    #  @style_t="hilite"
     elsif @sorter == "date"
-      @movies=Movie.where(rating: @rating).order("release_date").reverse_order
-      @style_d="hilite"
+      @movies=Movie.where(rating: @rating).order("release_date")
+    #  @style_d="hilite"
     else
-      @movies=Movie.where(rating: @rating).order("release_date").reverse_order
-      @style_t=""
-      @style_d=""
+      @movies=Movie.where(rating: @rating).order("release_date")
+    #  @style_t=""
+   #   @style_d=""
     end
   end
 
