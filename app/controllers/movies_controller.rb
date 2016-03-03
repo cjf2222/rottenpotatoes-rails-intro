@@ -13,7 +13,7 @@ class MoviesController < ApplicationController
    
   def index
     @movies = Movie.order(params[:order_by])
-    @ratings =Movie.pluck(:rating).uniq
+    @ratings =Movie.ratings
   end
 
   def new
