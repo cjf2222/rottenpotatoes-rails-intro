@@ -12,10 +12,11 @@ class MoviesController < ApplicationController
   end
    
   def index
+    @all_ratings = ['G','PG','PG-13','R']
     @rate = params[:ratings].keys
     
     @movies = Movie.where(ratings : @rate, params[:order_by])
-    @ratings =Movie.ratings
+   # @ratings =Movie.ratings
   end
 
   def new
