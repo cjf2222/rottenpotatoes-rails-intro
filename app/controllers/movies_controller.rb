@@ -4,57 +4,45 @@ class MoviesController < ApplicationController
     params.require(:movie).permit(:title, :rating, :description, :release_date)
   end
 
- 
   def show
     id = params[:id] # retrieve movie ID from URI route
     @movie = Movie.find(id) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default
   end
-   
-  def index
-  @all_ratings = ['G','PG','PG-13','R']
-  @chosen_ratings =['G','PG','PG-13','R']
-  #@rate = @ratings
-   # if(params[:ratings].present?)
-    #  @rate = params[:ratings].keys
-   # end
-     if(params[:ratings].present?)
-       @chosen_ratings = params[:ratings].keys
-       session[:current_ratings]= @chosen_ratings
-     else
-       if(session[:current_ratings].present?)
-         @chosen_ratings = session[:current_ratings]
-       else
-         session[:current_ratings] = @chosen_ratings
-      end
-    end
-    
-    @condition = "title"
-    if(params[:sort].present?)
-      @condition = params[:sort]
-      session[:current_sort] = @condition
-    else
-      if(session[:current_sort].present?)
-        @condition = session[:current_sort]
-      end
-    end
-    
-  if @condition == "title"
-    @movies = Movie.where(rating: @chosen_ratings).order("title")
-  elsif @condition == "date"
-    @movies = Movie.where(rating: @chosen_ratings).order("release_date").reverse_order
-  else
-     @movies = Movie.where(rating: @chosen_ratings).order("release_date").reverse_order
-   end
- end
- 
- 
 
-# @movies = Movie.order(params[:order_by])                    #movies(params[:ratings].keys, params[:order_by])
-  
- # session[:sort] =@sort
- # session[:ratings] =@rate
-   
+  def index
+    @all_ratings= ['G','PG','PG-13','R']
+    @chosen_ratings=['G','PG','PG-13','R']
+    if(params[:ratings].present?)
+      @chosen_ratings= params[:ratings].keys
+      session[:current_ratings]=@chosen_ratings
+    else
+        if(session[:current_ratings].present?)
+          @chosen_ratings=session[:current_ratings]
+        else
+          session[:current_ratings]=@chosen_ratings
+        end
+    end
+    @condition="title"
+    if(params[:sort].present?)
+      @condition=params[:sort]
+      session[:current_sort]=@condition
+    else
+        if(session[:current_sort].present?)
+          @condition=session[:current_sort]
+        end
+    end
+    if @condition == "title"
+      @movies=Movie.where(rating: @chosen_ratings).order("title")
+      @style_t="hilite"
+    elsif @condition == "date"
+      @movies=Movie.where(rating: @chosen_ratings).order("release_date").reverse_order
+      @style_d="hilite"
+    else
+      @movies=Movie.where(rating: @chosen_ratings).order("release_date").reverse_order
+      @style_t=""
+      @style_d=""
+    end
   end
 
   def new
@@ -84,5 +72,6 @@ class MoviesController < ApplicationController
     flash[:notice] = "Movie '#{@movie.title}' deleted."
     redirect_to movies_path
   end
-
+  
+  
 end
