@@ -11,7 +11,7 @@ class MoviesController < ApplicationController
   end
 
   def index
-    restful = false
+    #restful = false
     
     @all_ratings= ['G','PG','PG-13','R'] #initialized in controller  for buttons
     #compare ratings to the ratings chosen
@@ -22,11 +22,11 @@ class MoviesController < ApplicationController
     else
         if(session[:rates].present?)  #check if its in session
           @rating=session[:rates]  # if it is add it
-          restful = true
+        #  restful = true
         else
           session[:rates]=@rating    # if not, use session data instead
         end
-        restful = true
+       # restful = true
     end
     
     
@@ -37,13 +37,13 @@ class MoviesController < ApplicationController
     else
         if(session[:current_sort].present?)
           @sorter=session[:current_sort]
-          restful = true
+         # restful = true
         end
     end
     
-    if resful
-         redirect_to movies_path(:sort => @sorter, :rates => @rating)
-    end
+    #if resful
+     #    redirect_to movies_path(:sort => @sorter, :rates => @rating)
+   # end
        
     
     if @sorter == "title"
