@@ -8,5 +8,5 @@ class Movie < ActiveRecord::Base
     return self.order(sort_field) if not filters
     self.where({:rating => filters.keys}).order(sort_field)
   end
-  
+   
 end
