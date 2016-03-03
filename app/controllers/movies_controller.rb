@@ -4,13 +4,6 @@ class MoviesController < ApplicationController
     params.require(:movie).permit(:title, :rating, :description, :release_date)
   end
 
-  def self.movies(filters, sort_field)
-    self.where({:rating => filters}).order(sort_field)
-  end
-  
-  def ratings
-    self.pluck(:rating).uniq
-  end
  
   def show
     id = params[:id] # retrieve movie ID from URI route
@@ -19,7 +12,7 @@ class MoviesController < ApplicationController
   end
    
   def index
-    @movies = Movie.where(params[:ratings].keys).order(params[:order_by])
+    @movies = Movie.order(params[:order_by])
     @ratings =Movie.pluck(:rating).uniq
   end
 
