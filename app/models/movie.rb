@@ -1,5 +1,4 @@
 class Movie < ActiveRecord::Base
- attr_accessible :rating
   
   def self.ratings
     self.pluck(:rating).uniq
