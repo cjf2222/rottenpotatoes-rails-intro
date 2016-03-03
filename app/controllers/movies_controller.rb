@@ -13,12 +13,41 @@ class MoviesController < ApplicationController
    
   def index
   @all_ratings = ['G','PG','PG-13','R']
-  @ratings =Movie.ratings
+  @chosen_ratings =['G','PG','PG-13','R']
   #@rate = @ratings
    # if(params[:ratings].present?)
     #  @rate = params[:ratings].keys
    # end
-     
+     if(params[:ratings].present?)
+       @chosen_ratings = params[:ratings].keys
+       session[:current_ratings]= @chosen_ratings
+     else
+       if(session[:current_ratings].present?)
+         @chosen_ratings = session[:current_ratings]
+       else
+         session[:current_ratings] = @chosen_ratings
+      end
+    end
+    
+    @condition = "title"
+    if(params[:sort].present?)
+      @condition = params[:sort]
+      session[:current_sort] = @condition
+    else
+      if(session[:current_sort].present?)
+        @condition = session[:current_sort]
+      end
+    end
+    
+  if @condition == "title"
+    @movies = Movie.where(rating: @chosen_ratings).order("title")
+  elsif @condition == "date"
+    @movies = Movie.where(rating: @chosen_ratings).order("release_date").reverse_order
+  else
+     @movies = Movie.where(rating: @chosen_ratings).order("release_date").reverse_order
+   end
+ end
+ 
  
 
   @movies = Movie.order(params[:order_by])                    #movies(params[:ratings].keys, params[:order_by])
