@@ -10,8 +10,12 @@ class MoviesController < ApplicationController
     # will render app/views/movies/show.<extension> by default
   end
 
+  def self.movies(filters, sort_field)
+     self.where({:rating => filters}).order(sort_field)
+   end
+   
   def index
-    @movies = Movie.order(params[:order_by])
+    @movies = Movie.movies(params[:ratings], params[:order_by])
     @ratings =Movie.pluck(:rating).uniq
   end
 
