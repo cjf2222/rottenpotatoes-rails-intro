@@ -29,7 +29,7 @@ class MoviesController < ApplicationController
      end
      
 
-    @movies = Movie.where(rating: @rate).order(params[:order_by])                    #movies(params[:ratings].keys, params[:order_by])
+    @movies = Movie.where(rating: @rate).order(@sort)                    #movies(params[:ratings].keys, params[:order_by])
   
   session[:sort] =@sort
   session[:ratings] =@rate
