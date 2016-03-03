@@ -25,7 +25,7 @@ class MoviesController < ApplicationController
     end
     
     
-    @sorter=""                  # same as rating but for sort
+    @sorter="title"                  # same as rating but for sort
     if(params[:sort].present?)
       @sorter=params[:sort]
       session[:current_sort]=@sorter
@@ -34,7 +34,7 @@ class MoviesController < ApplicationController
           @sorter=session[:current_sort]
         end
     end
-    if @sorter == ""
+    if @sorter == "title"
       @movies=Movie.where(rating: @rating).order("title")
       @style_a="hilite"
       
