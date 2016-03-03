@@ -10,6 +10,7 @@ class MoviesController < ApplicationController
   
   def self.ratings
     self.pluck(:rating).uniq
+  end
  
   def show
     id = params[:id] # retrieve movie ID from URI route
@@ -19,7 +20,7 @@ class MoviesController < ApplicationController
    
   def index
     @movies = Movie.order(params[:order_by])
-    @ratings =Movie.pluck(:rating).uniq
+    @ratings =Movie.ratings
   end
 
   def new
