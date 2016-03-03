@@ -17,14 +17,14 @@ class MoviesController < ApplicationController
     @rate = @ratings
     if(params[:ratings].present?)
       @rate = params[:ratings].keys
-    elsif(session[:ratings])
+    elsif(session[:ratings].present?)
       @rate = session[:ratings].keys
     end
     
     @sort = " "
-    if(params[:order_by])
+    if(params[:order_by].present?)
        @sort = params[:order_by]
-    elsif(session[:order_by])
+    elsif(session[:order_by].present?)
        @sort = session[:order_by]
      end
      
