@@ -7,6 +7,9 @@ class MoviesController < ApplicationController
   def self.movies(filters, sort_field)
     self.where({:rating => filters}).order(sort_field)
   end
+  
+  def self.ratings
+    self.pluck(:rating).uniq
  
   def show
     id = params[:id] # retrieve movie ID from URI route
@@ -15,8 +18,8 @@ class MoviesController < ApplicationController
   end
    
   def index
-    @movies = Movie.order(params[:order_by])
-    @ratings =Movie.pluck(:rating).uniq
+    @movies = Movie.movies(params[:ratings].keys,(params[:order_by])
+    @ratings =Movie.ratings
   end
 
   def new
