@@ -23,7 +23,7 @@ class MoviesController < ApplicationController
         @rate = session[:ratings].keys
       else
         session[:ratings] = @rate
-      end
+        end
     end
     
     @sort = " "
@@ -33,8 +33,8 @@ class MoviesController < ApplicationController
     else
        if(session[:sort].present?)
         @sort = session[:sort]
-     end
-   end
+       end
+    end
 
     @movies = Movie.where(rating: @rate).order(@sort)                    #movies(params[:ratings].keys, params[:order_by])
   
