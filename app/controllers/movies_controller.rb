@@ -17,8 +17,17 @@ class MoviesController < ApplicationController
     @rate = @ratings
     if(params[:ratings].present?)
       @rate = params[:ratings].keys
+    elsif(session[:ratings])
+      @rate = session[:ratings].keys
     end
     
+    @sort = " "
+    if(params[:order_by])
+       @sort = params[:order_by]
+    elsif(session[:order_by])
+       @sort = session[:order_by]
+     end
+     
 
     @movies = Movie.where(rating: @rate).order(params[:order_by])                    #movies(params[:ratings].keys, params[:order_by])
   
