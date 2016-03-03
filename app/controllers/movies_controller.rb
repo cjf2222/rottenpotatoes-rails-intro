@@ -26,8 +26,8 @@ class MoviesController < ApplicationController
     if(params[:order_by].present?)
        @sort = params[:order_by]
       session[:sort] =@sort
-    elsif(session[:order_by].present?)
-       @sort = session[:order_by]
+    elsif(session[:sort].present?)
+       @sort = session[:sort]
      end
      
 
