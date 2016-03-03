@@ -21,7 +21,7 @@ class MoviesController < ApplicationController
      
  
 
-  @movies = Movie.order(params[:order_by])                    #movies(params[:ratings].keys, params[:order_by])
+  #@movies = Movie.order(params[:order_by])                    #movies(params[:ratings].keys, params[:order_by])
   
  # session[:sort] =@sort
  # session[:ratings] =@rate
