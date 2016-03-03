@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
     self.where({:rating => filters}).order(sort_field)
   end
   
-  def self.ratingz
+  def ratingz
     self.pluck(:rating).uniq
   end
  
