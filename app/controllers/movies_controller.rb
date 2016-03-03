@@ -12,6 +12,7 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings= ['G','PG','PG-13','R']
+    #compare ratings to the ratings chosen
     @rating=['G','PG','PG-13','R']
     if(params[:ratings].present?)  # check if its in params
       @rating= params[:ratings].keys #if it is, add it 
@@ -40,11 +41,11 @@ class MoviesController < ApplicationController
       
       #brought the hilite out of views into styles
     elsif @sorter == "date"
-      @movies=Movie.where(rating: @rating).order("release_date").reverse_order
+      @movies=Movie.where(rating: @rating).order("release_date")
       @style_b="hilite"
       
     else
-      @movies=Movie.where(rating: @rating).order("release_date").reverse_order
+      @movies=Movie.where(rating: @rating).order("release_date")
       @style_a=""
       @style_b=""
     end
