@@ -15,7 +15,7 @@ class MoviesController < ApplicationController
     @all_ratings = ['G','PG','PG-13','R']
     @rate = params[:ratings].keys
     
-    @movies = Movie.where(ratings : @rate, params[:order_by])
+    @movies = Movie.where(rating: @rate).order(params[:order_by])
    # @ratings =Movie.ratings
   end
 
