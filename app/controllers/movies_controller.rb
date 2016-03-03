@@ -12,7 +12,7 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings= ['G','PG','PG-13','R']
-    @rating=Movie.ratings#['G','PG','PG-13','R']
+    @rating=['G','PG','PG-13','R']
     if(params[:ratings].present?)  # check if its in params
       @rating= params[:ratings].keys #if it is, add it 
       session[:rates]=@rating       #if not add to session instead
