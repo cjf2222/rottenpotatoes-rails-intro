@@ -3,7 +3,7 @@ class Movie < ActiveRecord::Base
     self.where({:rating => filters}).order(sort_field)
   end
   
-  def ratings
+  def self.ratings
     self.pluck(:rating).uniq
   end
   
