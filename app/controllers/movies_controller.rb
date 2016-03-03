@@ -14,9 +14,9 @@ class MoviesController < ApplicationController
   def index
     #@all_ratings = ['G','PG','PG-13','R']
     
-    @rate = params[:ratings].keys
-    if(params[:ratings].present?)
-        @rate = @ratings
+   # @rate = params[:ratings].keys
+   # if(params[:ratings].present?)
+     #   @rate = @ratings
     @movies = Movie.order(params[:order_by])
     @ratings =Movie.ratings
   end
