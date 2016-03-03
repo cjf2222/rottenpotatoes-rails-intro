@@ -33,13 +33,13 @@ class MoviesController < ApplicationController
         end
     end
     if @sorter == "title"
-      @movies=Movie.where(rating: @chosen_ratings).order("title")
+      @movies=Movie.where(rating: @rating).order("title")
       @style_t="hilite"
     elsif @sorter == "date"
-      @movies=Movie.where(rating: @chosen_ratings).order("release_date").reverse_order
+      @movies=Movie.where(rating: @rating).order("release_date").reverse_order
       @style_d="hilite"
     else
-      @movies=Movie.where(rating: @chosen_ratings).order("release_date").reverse_order
+      @movies=Movie.where(rating: @rating).order("release_date").reverse_order
       @style_t=""
       @style_d=""
     end
