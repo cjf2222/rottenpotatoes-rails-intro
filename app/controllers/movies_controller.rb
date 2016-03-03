@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
     self.where({:rating => filters}).order(sort_field)
   end
   
-  def self.ratings
+  def self.ratingz
     self.pluck(:rating).uniq
   end
  
@@ -20,7 +20,7 @@ class MoviesController < ApplicationController
    
   def index
     @movies = Movie.order(params[:order_by])
-    @ratings =Movie.ratings
+    @ratings =Movie.ratingz
   end
 
   def new
