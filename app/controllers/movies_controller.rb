@@ -20,7 +20,13 @@ class MoviesController < ApplicationController
     end
     
 
-    @movies = Movie.where(rating: @rate).order(params[:order_by])                     #movies(params[:ratings].keys, params[:order_by])
+    @movies = Movie.where(rating: @rate).order(params[:order_by])                    #movies(params[:ratings].keys, params[:order_by])
+    @filters = if params[:ratings].nil?
+      @ratings
+    else
+      params[:ratings]
+    end
+  end
    
   end
 
