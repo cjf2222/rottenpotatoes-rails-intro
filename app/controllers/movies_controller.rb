@@ -4,14 +4,23 @@ class MoviesController < ApplicationController
     params.require(:movie).permit(:title, :rating, :description, :release_date)
   end
 
-  def show
+def show
     id = params[:id] # retrieve movie ID from URI route
     @movie = Movie.find(id) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default
   end
 
   def index
-    @movies = Movie.all
+    ensure_table_filters
+    filters = session[:table_filters]
+    @order = filters[:order]
+    @ratings = (filters[:ratings]) ? filters[:ratings].values : []
+    if Movie.column_names.include? @order
+        @movies = Movie.find(:all, :order => @order, :conditions =>  ['rating in (?)', @ratings])
+    else
+      @movies = Movie.find(:all, :conditions =>  ['rating in (?)', @ratings])
+    end
+    @all_ratings = Movie.ratings
   end
 
   def new
@@ -19,7 +28,7 @@ class MoviesController < ApplicationController
   end
 
   def create
-    @movie = Movie.create!(movie_params)
+    @movie = Movie.create!(params[:movie])
     flash[:notice] = "#{@movie.title} was successfully created."
     redirect_to movies_path
   end
@@ -30,7 +39,7 @@ class MoviesController < ApplicationController
 
   def update
     @movie = Movie.find params[:id]
-    @movie.update_attributes!(movie_params)
+    @movie.update_attributes!(params[:movie])
     flash[:notice] = "#{@movie.title} was successfully updated."
     redirect_to movie_path(@movie)
   end
@@ -41,5 +50,17 @@ class MoviesController < ApplicationController
     flash[:notice] = "Movie '#{@movie.title}' deleted."
     redirect_to movies_path
   end
+  
+  private
+  def ensure_table_filters
+    # this is awful, gotta find some elegence with merge or something
+    session[:table_filters] = {} if session[:table_filters].nil?
+    if params[:order] != session[:table_filters][:order] || params[:ratings] != session[:table_filters][:ratings]
+      needs_redirect = true
+    end
+    session[:table_filters][:order] = params[:order] unless params[:order].nil?
+    session[:table_filters][:ratings] = params[:ratings] unless params[:ratings].nil?
 
+    redirect_to movies_path(session[:table_filters]) if needs_redirect
+  end
 end
