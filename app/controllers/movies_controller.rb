@@ -15,9 +15,9 @@ class MoviesController < ApplicationController
     #@all_ratings = ['G','PG','PG-13','R']
     @ratings =Movie.ratings
     @rate = @ratings
-    if(params[:ratings].present?)
-      @rate = params[:ratings].keys
-    end
+    #if(params[:ratings].present?)
+    #  @rate = params[:ratings].keys
+   # end
      
  
 
