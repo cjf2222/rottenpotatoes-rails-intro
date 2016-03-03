@@ -17,6 +17,7 @@ class MoviesController < ApplicationController
     @rate = @ratings
     if(params[:ratings].present?)
       @rate = params[:ratings].keys
+    end
      
  
 
