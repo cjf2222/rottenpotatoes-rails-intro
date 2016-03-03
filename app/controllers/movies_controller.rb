@@ -12,18 +12,20 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings= ['G','PG','PG-13','R']
-    @rating=['G','PG','PG-13','R']
-    if(params[:ratings].present?)
-      @rating= params[:ratings].keys
-      session[:rates]=@rating
+    @rating=Movie.ratings#['G','PG','PG-13','R']
+    if(params[:ratings].present?)  # check if its in params
+      @rating= params[:ratings].keys #if it is, add it 
+      session[:rates]=@rating       #if not add to session instead
     else
-        if(session[:rates].present?)
-          @rating=session[:rates]
+        if(session[:rates].present?)  #check if its in session
+          @rating=session[:rates]     # if it is add it
         else
-          session[:rates]=@rating
+          session[:rates]=@rating    # if not, use session data instead
         end
     end
-    @sorter="title"
+    
+    
+    @sorter=""                  # same as rating but for sort
     if(params[:sort].present?)
       @sorter=params[:sort]
       session[:current_sort]=@sorter
@@ -32,12 +34,15 @@ class MoviesController < ApplicationController
           @sorter=session[:current_sort]
         end
     end
-    if @sorter == "title"
+    if @sorter == ""
       @movies=Movie.where(rating: @rating).order("title")
       @style_a="hilite"
+      
+      #brought the hilite out of views into styles
     elsif @sorter == "date"
       @movies=Movie.where(rating: @rating).order("release_date").reverse_order
       @style_b="hilite"
+      
     else
       @movies=Movie.where(rating: @rating).order("release_date").reverse_order
       @style_a=""
